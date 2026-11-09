@@ -338,3 +338,7 @@ section { padding-bottom: 104px; scroll-margin-top: 48px; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
 }
+
+.paper + .paper {
+  margin-top: 2.5rem;
+}
