@@ -229,7 +229,7 @@ if (canvas) {
     ctx.globalAlpha = 1;
 
     // Readout: diffusion time and progress.
-    ctx.font = `500 ${Math.max(10, 10.5 * unitPx)}px "JetBrains Mono", ui-monospace, monospace`;
+/*     ctx.font = `500 ${Math.max(10, 10.5 * unitPx)}px "JetBrains Mono", ui-monospace, monospace`;
     ctx.textBaseline = 'top';
     ctx.fillStyle = rgb(palette.bond);
     ctx.fillText(`t = ${t.toFixed(2)}`, 0, 2);
@@ -237,7 +237,7 @@ if (canvas) {
     ctx.fillText(`sample ${String(sample).padStart(2, '0')}`, width, 2);
     ctx.textAlign = 'left';
     ctx.fillStyle = mix(palette.noise, palette.accent, typeReveal);
-    ctx.fillText(label, 0, 2 + 15 * Math.max(1, unitPx));
+    ctx.fillText(label, 0, 2 + 15 * Math.max(1, unitPx)); */
 
     const barY = height - 2;
     ctx.globalAlpha = 0.25;

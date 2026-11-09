@@ -83,6 +83,7 @@ ul, ol { padding: 0; list-style: none; }
   height: 100vh;
   height: 100dvh;
   padding: 80px 0 48px;
+  isolation: isolate;
 }
 
 main { padding: 80px 0 48px; }
@@ -108,7 +109,11 @@ h1 {
 .role { color: var(--ink); font-size: 1.125rem; font-weight: 500; }
 .lede { max-width: 36ch; margin-top: 10px; color: var(--muted); }
 
-.toc { margin-top: 40px; }
+.toc {
+  position: relative;
+  z-index: 1;
+  margin-top: 40px;
+}
 .toc a {
   display: inline-flex;
   align-items: center;
@@ -129,17 +134,30 @@ h1 {
 .molecule canvas { flex: 1; width: 100%; min-height: 0; cursor: grab; touch-action: pan-y; } */
 
 .molecule {
+  position: absolute;
+  top: 58%;
+  right: 0;
+  left: 0;
+  z-index: 0;
   display: flex;
-  flex: 1;
   flex-direction: column;
-  min-height: 220px;          /* canvas can never collapse */
-  margin: 24px 0;
+  height: 300px;
+  margin: 0;
   background: radial-gradient(closest-side, var(--accent-soft), transparent);
+  opacity: .78;
+  pointer-events: none;
 }
 .molecule canvas { flex: 1; width: 100%; min-height: 0; cursor: grab; touch-action: pan-y; }
 .molecule canvas:active { cursor: grabbing; }
 
-.contact-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.contact-row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
 .socials { display: flex; gap: 6px; }
 .socials a {
   display: grid;
@@ -208,6 +226,7 @@ section { padding-bottom: 104px; scroll-margin-top: 48px; }
 .paper-authors { margin-top: 12px; color: var(--muted); font-size: 15px; }
 .paper-authors strong { color: var(--ink); font-weight: 600; }
 .paper-summary { margin-top: 14px; }
+.paper + .paper {margin-top: 1rem; }
 
 .pipeline { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 32px; }
 .pipeline li { position: relative; display: flex; flex-direction: column; gap: 2px; padding: 22px 14px 0 0; border-top: 1px solid var(--line); }
@@ -300,6 +319,7 @@ section { padding-bottom: 104px; scroll-margin-top: 48px; }
   .intro { padding-top: 56px; }
   .toc { margin-top: 24px; }
   .lede { display: none; }
+  .molecule { top: 56%; height: 220px; }
 }
 
 @media (max-width: 960px) {
@@ -307,7 +327,14 @@ section { padding-bottom: 104px; scroll-margin-top: 48px; }
   .intro { position: static; height: auto; padding: 64px 0 8px; }
   .toc { display: none; }
   /* .molecule { flex: none; margin: 16px 0 24px; } */
-  .molecule { flex: none; min-height: 0; margin: 16px 0 24px; }
+  .molecule {
+    position: static;
+    height: auto;
+    min-height: 0;
+    margin: 16px 0 24px;
+    opacity: 1;
+    pointer-events: auto;
+  }
   html { scroll-padding-top: 64px; }
   .molecule canvas { flex: none; height: 240px; }
   main { padding-top: 48px; }
@@ -337,8 +364,4 @@ section { padding-bottom: 104px; scroll-margin-top: 48px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
-}
-
-.paper + .paper {
-  margin-top: 1rem;
 }
